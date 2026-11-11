@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mailsec-check"
+version = "0.1.0"
+description = "Passive e-mail security checks for a domain: MX, SPF, DKIM, DMARC, MTA-STS, TLS-RPT, STARTTLS, PTR"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "DyMeX" }]
+keywords = ["email", "spf", "dkim", "dmarc", "mta-sts", "tls-rpt", "starttls", "dns"]
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: Name Service (DNS)",
+    "Topic :: Communications :: Email",
+]
+dependencies = ["dnspython>=2.0"]
+
+[project.optional-dependencies]
+# Exact RSA key size for DKIM keys; without it the size is estimated from the length of the key.
+keys = ["cryptography"]
+
+[project.scripts]
+mailsec-check = "mailsec_check.cli:main"
+
+[tool.setuptools]
+packages = ["mailsec_check"]
